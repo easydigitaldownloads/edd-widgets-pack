@@ -73,6 +73,9 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
                 // set the thumbnail size
                 $thumbnail_size = isset( $instance['thumbnail_size'] ) ? $instance['thumbnail_size'] : 80; 
 
+                // get the category
+                $category = isset( $instance['category'] ) ? $instance['category'] : 'edd-all-categories';
+
                 // start collecting the output
                 $out = "";
 
@@ -91,6 +94,15 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
                     'offset'         => $offset
                  );
 
+                // adjust params if we're only pulling one category
+                if( isset( $category ) && $category != 'edd-all-categories' ) {
+                    $params['tax_query'][] = array(
+                        'taxonomy'       => 'download_category',
+                        'field'          => 'slug',
+                        'terms'          => $category
+                    );
+                }
+                
                 // get the most recent downloads
                 $most_recent = get_posts( $params );
 
@@ -199,6 +211,10 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
             $instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );
             $instance['thumbnail_size'] = ( ( bool ) preg_match( '/^[0-9]+$/', $instance['thumbnail_size'] ) ) ? $instance['thumbnail_size'] : 80;
 
+            // sanitize category
+            $instance['category'] = strip_tags( $new_instance['category'] );
+            $instance['category'] = $instance['category'] ? $instance['category'] : 'edd-all-categories';
+
             // delete cache
             $this->delete_cache();
 
@@ -234,6 +250,9 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
             $show_price = isset( $instance['show_price'] ) ? esc_attr( $instance['show_price'] ) : 0;            
             $thumbnail = isset( $instance['thumbnail'] ) ? esc_attr( $instance['thumbnail'] ) : 0;
             $thumbnail_size = isset( $instance['thumbnail_size'] ) ? esc_attr( $instance['thumbnail_size'] ) : 80;
+            $category = isset( $instance['category'] ) ? esc_attr( $instance['category'] ) : 'all';
+
+            $category_list = get_terms( 'download_category' );
 
             ?>
                 <p>
@@ -259,6 +278,17 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
                 <p>
                     <label for="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>"><?php _e( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', 'edd-widgets-pack' ); ?></label> 
                     <input class="widefat" id="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail_size' ); ?>" type="text" value="<?php echo $thumbnail_size; ?>" />
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php printf( __( 'Display %s from category:', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?></label>
+                    <select class="widefat" name="<?php echo $this->get_field_name( 'category' ); ?>" id="<?php echo $this->get_field_id( 'category' ); ?>">
+                        <option value="edd-all-categories"><?php _e( 'All', 'edd-widgets-pack' ); ?></option>
+                        <?php if( !empty( $category_list ) ) {
+                            foreach( $category_list as $key => $category_details ) {
+                                echo '<option value="' . $category_details->slug . '"' . selected( $category_details->slug, $category ) . '>' . $category_details->name . '</option>';
+                            }
+                        } ?>
+                    </select>
                 </p>
             <?php
         }
