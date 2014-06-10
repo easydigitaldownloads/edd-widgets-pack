@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Widgets Pack
 Plugin URL: http://easydigitaldownloads.com/extension/widgets-pack
 Description: A pack of widgets for Easy Digital Downloads.
-Version: 1.0.9
+Version: 1.0.10
 Author: Matt Varone
 Author URI: http://www.mattvarone.com
 Contributors: sksmatt
