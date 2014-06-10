@@ -241,7 +241,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
                     <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>"/>
                 </p>
                 <p>
-                    <label for="<?php echo $this->get_field_id( 'offset' ); ?>"><?php printf( __('Number of %s to skip:', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?>></label>
+                    <label for="<?php echo $this->get_field_id( 'offset' ); ?>"><?php printf( __('Number of %s to skip:', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?></label>
                     <input class="small" size="3" id="<?php echo $this->get_field_id( 'offset' ); ?>" name="<?php echo $this->get_field_name( 'offset' ); ?>" type="text" value="<?php echo $offset; ?>"/>
                 </p>
                 <p>
