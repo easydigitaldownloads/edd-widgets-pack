@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Widgets Pack
 Plugin URL: http://easydigitaldownloads.com/extension/widgets-pack
 Description: A pack of widgets for Easy Digital Downloads.
-Version: 1.0.10
+Version: 1.1.0
 Author: Matt Varone
 Author URI: http://www.mattvarone.com
 Contributors: sksmatt
@@ -28,6 +28,11 @@ if ( ! function_exists( 'edd_widgets_pack_init' ) ) {
 
         // load internationalization
         load_plugin_textdomain( 'edd-widgets-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/lan/' );
+
+        // Handle licensing
+        if( class_exists( 'EDD_License' ) ) {
+            $license = new EDD_License( __FILE__, 'Widgets Pack', '1.1.0', 'Pippin Williamson' );
+        }
         
         // register widgets
         require_once( plugin_dir_path( __FILE__ ) . 'widgets/edd-widget-top-sellers.php' );
