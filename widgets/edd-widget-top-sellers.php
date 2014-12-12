@@ -126,16 +126,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
                         // get the price
                         if ( $show_price === 1 ) {
                             if ( edd_has_variable_prices( $download->ID ) ) {
-                                $prices = get_post_meta( $download->ID, 'edd_variable_prices', true );
-                                $total = count( $prices ) - 1;
-                                if ( $prices[0]['amount'] < $prices[$total]['amount'] ) {
-                                    $min = $prices[0]['amount'];
-                                    $max = $prices[$total]['amount'];
-                                } else {
-                                    $min = $prices[$total]['amount'];
-                                    $max = $prices[0]['amount'];
-                                }
-                                $price = sprintf( '%s - %s', edd_currency_filter( $min ), edd_currency_filter( $max ) );
+                                $price = edd_price_range( $download->ID );
                             } else {
                                 $price = edd_currency_filter( edd_get_download_price( $download->ID ) );
                             }
