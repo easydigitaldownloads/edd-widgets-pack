@@ -50,104 +50,104 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
         function widget( $args, $instance )
         {
 
-             if ( false == $cache = get_transient( 'edd_widgets_featured_download_' . $this->id ) ) {
+            if ( false == $cache = get_transient( 'edd_widgets_featured_download_' . $this->id ) ) {
 
-                 // get the title and apply filters
-                 $title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
+                // get the title and apply filters
+                $title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
 
-                 // get the featured download
-                 $download = isset( $instance['download'] ) ? $instance['download'] : 0;
-                 
-                 // get show price boolean
-                 $show_price = isset( $instance['show_price'] ) && $instance['show_price'] === 1 ? 1 : 0;
+                // get the featured download
+                $download = isset( $instance['download'] ) ? $instance['download'] : 0;
+                
+                // get show price boolean
+                $show_price = isset( $instance['show_price'] ) && $instance['show_price'] === 1 ? 1 : 0;
 
-                 // get the thumbnail boolean
-                 $thumbnail = isset( $instance['thumbnail'] ) && $instance['thumbnail'] === 1 ? 1 : 0;
+                // get the thumbnail boolean
+                $thumbnail = isset( $instance['thumbnail'] ) && $instance['thumbnail'] === 1 ? 1 : 0;
 
-                 // set the thumbnail size
-                 $thumbnail_size = isset( $instance['thumbnail_size'] ) ? $instance['thumbnail_size'] : 80;
+                // set the thumbnail size
+                $thumbnail_size = isset( $instance['thumbnail_size'] ) ? $instance['thumbnail_size'] : 80;
 
-                 // start collecting the output
-                 $out = "";
+                // start collecting the output
+                $out = "";
 
-                 // check if there is a title
-                 if ( $title ) {
-                     // add the title to the ouput
-                     $out .= $args['before_title'] . $title . $args['after_title'];
-                 }
+                // check if there is a title
+                if ( $title ) {
+                    // add the title to the ouput
+                    $out .= $args['before_title'] . $title . $args['after_title'];
+                }
 
-                 // set the params
-                 $params = array( 
-                     'post_type'      => 'download', 
-                     'posts_per_page' =>  1, 
-                     'post_status'    => 'publish', 
-                     'post__in'       =>  array( $download )
-                  );
+                // set the params
+                $params = array( 
+                    'post_type'      => 'download', 
+                    'posts_per_page' =>  1, 
+                    'post_status'    => 'publish', 
+                    'post__in'       =>  array( $download )
+                 );
 
-                 // get featured download
-                 $featured_download = get_posts( $params );
+                // get featured download
+                $featured_download = get_posts( $params );
 
-                 // check download
-                 if ( is_null( $featured_download ) || empty( $featured_download ) ) {
-                     // return if there is no download
-                     return;
+                // check download
+                if ( is_null( $featured_download ) || empty( $featured_download ) ) {
+                    // return if there is no download
+                    return;
 
-                 } else {
-                     // start the list output
-                     $out .= "<ul class=\"widget-featured-download\">\n";
+                } else {
+                    // start the list output
+                    $out .= "<ul class=\"widget-featured-download\">\n";
 
-                     // set the link structure
-                     $link = "<a href=\"%s\" title=\"%s\" class=\"%s\" rel=\"bookmark\">%s</a>\n";
+                    // set the link structure
+                    $link = "<a href=\"%s\" title=\"%s\" class=\"%s\" rel=\"bookmark\">%s</a>\n";
+                   
+                    // filter the thumbnail size
+                    $thumbnail_size = apply_filters( 'edd_widgets_featured_download_thumbnail_size', array( $thumbnail_size, $thumbnail_size ) );
                     
-                     // filter the thumbnail size
-                     $thumbnail_size = apply_filters( 'edd_widgets_featured_download_thumbnail_size', array( $thumbnail_size, $thumbnail_size ) );
-                     
-                     // loop trough the featured download
-                     foreach ( $featured_download as $download ) {
-                         // get the title 
-                         $title = apply_filters( 'the_title', $download->post_title, $download->ID );
-						 $title_attr = apply_filters( 'the_title_attribute', $download->post_title, $download->ID );
+                    // loop trough the featured download
+                    foreach ( $featured_download as $download ) {
+                        // get the title 
+                        $title = apply_filters( 'the_title', $download->post_title, $download->ID );
+                        $title_attr = apply_filters( 'the_title_attribute', $download->post_title, $download->ID );
 
-                        // get the post thumbnail
-                        if ( $thumbnail === 1 && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $download->ID ) ) {
-                            $post_thumbnail = get_the_post_thumbnail( $download->ID, $thumbnail_size, array( 'title' => esc_attr( $title_attr ) ) ) . "\n";
-                            $out .= "<li class=\"widget-download-with-thumbnail\">\n";
-                            $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-thumb', $post_thumbnail );
-                        } else {
-                            $out .= "<li>\n";
+                       // get the post thumbnail
+                       if ( $thumbnail === 1 && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $download->ID ) ) {
+                           $post_thumbnail = get_the_post_thumbnail( $download->ID, $thumbnail_size, array( 'title' => esc_attr( $title_attr ) ) ) . "\n";
+                           $out .= "<li class=\"widget-download-with-thumbnail\">\n";
+                           $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-thumb', $post_thumbnail );
+                       } else {
+                           $out .= "<li>\n";
+                       }
+
+                       // append the download's title
+                       $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-title', $title );
+                        
+                        // get the price
+                        if ( $show_price === 1 ) {
+                            if ( edd_has_variable_prices( $download->ID ) ) {
+                                $price = edd_price_range( $download->ID );
+                            } else {
+                                $price = edd_currency_filter( edd_get_download_price( $download->ID ) );
+                            }
+                            $out .= sprintf( "<span class=\"widget-download-price\">%s</span>\n", $price ); 
                         }
+                        
+                        // finish this element
+                        $out .= "</li>\n";
+                    }
+                    // finish the list
+                    $out .= "</ul>\n";
+                }
 
-                        // append the download's title
-                        $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-title', $title );
-                         
-                         // get the price
-                         if ( $show_price === 1 ) {
-                             if ( edd_has_variable_prices( $download->ID ) ) {
-                                 $price = edd_price_range( $download->ID );
-                             } else {
-                                 $price = edd_currency_filter( edd_get_download_price( $download->ID ) );
-                             }
-                             $out .= sprintf( "<span class=\"widget-download-price\">%s</span>\n", $price ); 
-                         }
-                         
-                         // finish this element
-                         $out .= "</li>\n";
-                     }
-                     // finish the list
-                     $out .= "</ul>\n";
-                 }
+                // set the widget's containers
+                $cache = $args['before_widget'] . $out . $args['after_widget'];
 
-                 // set the widget's containers
-                 $cache = $args['before_widget'] . $out . $args['after_widget'];
+                // store the result on a temporal transient
+                set_transient( 'edd_widgets_featured_download', $cache );
 
-                 // store the result on a temporal transient
-                 set_transient( 'edd_widgets_featured_download', $cache );
+            }
 
-             }
+            echo $cache;
 
-             echo $cache;
-
-         }
+        }
 
 
         /**
