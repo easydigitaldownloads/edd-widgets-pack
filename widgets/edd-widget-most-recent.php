@@ -125,7 +125,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
                     foreach ( $most_recent as $download ) {
                         // get the title 
                         $title = apply_filters( 'the_title', $download->post_title, $download->ID );
-						$title_attr = apply_filters( 'the_title_attribute', $download->post_title, $download->ID );
+                        $title_attr = apply_filters( 'the_title_attribute', $download->post_title, $download->ID );
 
                         // get the post thumbnail
                         if ( $thumbnail === 1 && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $download->ID ) ) {
