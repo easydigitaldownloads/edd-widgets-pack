@@ -110,18 +110,19 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
                     foreach ( $top_sellers as $download ) {
                         // get the title 
                         $title = apply_filters( 'the_title', $download->post_title, $download->ID );
+						$title_attr = apply_filters( 'the_title_attribute', $download->post_title, $download->ID );
 
                         // get the post thumbnail
                         if ( $thumbnail === 1 && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $download->ID ) ) {
-                            $post_thumbnail = get_the_post_thumbnail( $download->ID, $thumbnail_size, array( 'title' => esc_attr( $title ) ) ) . "\n";
+                            $post_thumbnail = get_the_post_thumbnail( $download->ID, $thumbnail_size, array( 'title' => esc_attr( $title_attr ) ) ) . "\n";
                             $out .= "<li class=\"widget-download-with-thumbnail\">\n";
-                            $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title ), 'widget-download-thumb', $post_thumbnail );
+                            $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-thumb', $post_thumbnail );
                         } else {
                             $out .= "<li>\n";
                         }
 
                         // append the download's title
-                        $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title ), 'widget-download-title', $title );
+                        $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-title', $title );
 
                         // get the price
                         if ( $show_price === 1 ) {
