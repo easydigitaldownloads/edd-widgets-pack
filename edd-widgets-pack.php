@@ -31,7 +31,7 @@ if ( ! function_exists( 'edd_widgets_pack_init' ) ) {
 
         // Handle licensing
         if( class_exists( 'EDD_License' ) ) {
-            $license = new EDD_License( __FILE__, 'Widgets Pack', '1.2', 'Pippin Williamson' );
+            $license = new EDD_License( __FILE__, 'Widgets Pack', '1.2.1', 'Pippin Williamson' );
         }
         
         // register widgets
