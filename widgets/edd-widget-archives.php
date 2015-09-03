@@ -91,7 +91,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
                 $cache = $args['before_widget'] . $out . $args['after_widget'];
 
                 // store the result on a temporal transient
-                set_transient( 'edd_widgets_archives', $cache, DAY_IN_SECONDS );
+                set_transient( 'edd_widgets_archives', $cache );
 
             }
 
