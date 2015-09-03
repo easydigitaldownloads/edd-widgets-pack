@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * EDD Downloads Calendar Widget
  *
  * @package      EDD Widgets Pack
@@ -14,7 +14,7 @@
  * EDD Downloads Calendar Widget Class
  *
  * A calendar of your site’s EDD downloads.
- *  
+ *
  * @access   private
  * @return   void
  * @since    1.0
@@ -31,17 +31,14 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
         */
 
         function __construct()
-        {        
+        {
             // hook updates
             add_action( 'save_post', array( &$this, 'delete_cache' ) );
             add_action( 'delete_post', array( &$this, 'delete_cache' ) );
             add_action( 'update_option_start_of_week', array( &$this, 'delete_cache' ) );
             add_action( 'update_option_gmt_offset', array( &$this, 'delete_cache' ) );
 
-            // enable date based archives for downloads
-            add_action( 'pre_get_posts', array( &$this, 'pre_get_posts_filter' ) );
-
-            // contruct widget
+            // construct widget
             parent::__construct( false, sprintf( __( 'EDD %s Calendar', 'edd-widgets-pack' ), edd_get_label_singular() ), array( 'description' => sprintf( __( 'A calendar of your site\'s EDD %s.', 'edd-widgets-pack' ), edd_get_label_plural( true ) ) ) );
         }
 
@@ -56,34 +53,27 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
         function widget( $args, $instance )
         {
 
-           if ( false == $cache = get_transient( 'edd_widgets_downloads_calendar' ) ) {
+            // get the title and apply filters
+            $title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
 
-                // get the title and apply filters
-                $title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
+            // set the limit
+            $limit = isset( $instance['limit'] ) ? $instance['limit'] : 4;
 
-                // set the limit 
-                $limit = isset( $instance['limit'] ) ? $instance['limit'] : 4; 
+            // start collecting the output
+            $out = "";
 
-                // start collecting the output
-                $out = "";
+            // check if there is a title
+            if ( $title ) {
+                // add the title to the ouput
+                $out .= $args['before_title'] . $title . $args['after_title'];
+            }
 
-                // check if there is a title
-                if ( $title ) {
-                    // add the title to the ouput
-                    $out .= $args['before_title'] . $title . $args['after_title'];
-                }
+            $out .= $this->get_calendar();
 
-                $out .= $this->get_calendar();
+            // set the widget's containers
+            $out = $args['before_widget'] . $out . $args['after_widget'];
 
-                // set the widget's containers
-                $cache = $args['before_widget'] . $out . $args['after_widget'];
-
-                // store the result on a temporal transient
-                set_transient( 'edd_widgets_downloads_calendar', $cache );
-
-           }
-
-            echo $cache;
+            echo $out;
 
         }
 
@@ -96,7 +86,7 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
         */
 
         function update( $new_instance, $old_instance )
-        {     
+        {
             $instance = $old_instance;
 
             // sanitize title
@@ -114,14 +104,14 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
          *
          * @return   void
          * @since    1.0
-        */    
+        */
 
         function delete_cache()
         {
             // check if widget is active
             if ( ! is_active_widget( false, false, $this->id_base, true ) )
             return;
-                
+
             // delete this widget's transient
             delete_transient( 'edd_widgets_downloads_calendar' );
         }
@@ -238,7 +228,7 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
             <tr>';
 
             if ( $previous ) {
-                $calendar_output .= "\n\t\t".'<td colspan="3" id="prev"><a href="' . get_month_link( $previous->year, $previous->month ) . '" title="' . esc_attr( sprintf( __( 'View %3$s for %1$s %2$s', 'edd-widgets-pack' ), $wp_locale->get_month( $previous->month ), date( 'Y', mktime( 0, 0 , 0, $previous->month, 1, $previous->year ) ), edd_get_label_plural( true ) ) ) . '">&laquo; ' . $wp_locale->get_month_abbrev( $wp_locale->get_month( $previous->month ) ) . '</a></td>';
+                $calendar_output .= "\n\t\t".'<td colspan="3" id="prev"><a href="' . get_month_link( $previous->year, $previous->month ) . '?post_type=download" title="' . esc_attr( sprintf( __( 'View %3$s for %1$s %2$s', 'edd-widgets-pack' ), $wp_locale->get_month( $previous->month ), date( 'Y', mktime( 0, 0 , 0, $previous->month, 1, $previous->year ) ), edd_get_label_plural( true ) ) ) . '">&laquo; ' . $wp_locale->get_month_abbrev( $wp_locale->get_month( $previous->month ) ) . '</a></td>';
             } else {
                 $calendar_output .= "\n\t\t".'<td colspan="3" id="prev" class="pad">&nbsp;</td>';
             }
@@ -246,7 +236,7 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
             $calendar_output .= "\n\t\t".'<td class="pad">&nbsp;</td>';
 
             if ( $next ) {
-                $calendar_output .= "\n\t\t".'<td colspan="3" id="next"><a href="' . get_month_link( $next->year, $next->month ) . '" title="' . esc_attr( sprintf( __( 'View %3$s for %1$s %2$s', 'edd-widgets-pack' ), $wp_locale->get_month( $next->month ), date( 'Y', mktime( 0, 0 , 0, $next->month, 1, $next->year ) ), edd_get_label_plural( true ) ) ) . '">' . $wp_locale->get_month_abbrev( $wp_locale->get_month( $next->month ) ) . ' &raquo;</a></td>';
+                $calendar_output .= "\n\t\t".'<td colspan="3" id="next"><a href="' . get_month_link( $next->year, $next->month ) . '?post_type=download" title="' . esc_attr( sprintf( __( 'View %3$s for %1$s %2$s', 'edd-widgets-pack' ), $wp_locale->get_month( $next->month ), date( 'Y', mktime( 0, 0 , 0, $next->month, 1, $next->year ) ), edd_get_label_plural( true ) ) ) . '">' . $wp_locale->get_month_abbrev( $wp_locale->get_month( $next->month ) ) . ' &raquo;</a></td>';
             } else {
                 $calendar_output .= "\n\t\t".'<td colspan="3" id="next" class="pad">&nbsp;</td>';
             }
@@ -314,7 +304,7 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
                     $calendar_output .= '<td>';
 
                 if ( in_array( $day, $daywithpost ) ) // any posts today?
-                        $calendar_output .= '<a href="' . get_day_link( $thisyear, $thismonth, $day ) . '" title="' . esc_attr( $ak_titles_for_day[ $day ] ) . "\">$day</a>";
+                        $calendar_output .= '<a href="' . get_day_link( $thisyear, $thismonth, $day ) . '?post_type=download" title="' . esc_attr( $ak_titles_for_day[ $day ] ) . "\">$day</a>";
                 else
                     $calendar_output .= $day;
                 $calendar_output .= '</td>';
@@ -332,47 +322,14 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
             return apply_filters( 'edd_widgets_pack_get_downloads_calendar',  $calendar_output );
 
         }
-
-
-        /**
-         * Rewrite Rules Array
-         *
-         * @author   Copyright 2012 Jennifer M. Dodd <jmdodd@gmail.com>
-         * @license  Released under the GPLv2 ( or later ).
-         * @return   void
-         * @since    1.0
-        */
-
-        function pre_get_posts_filter( $query ) {
-            
-            if ( ! is_active_widget( false, false, $this->id_base, true ) )
-            return;
-            
-            if ( ! is_preview() && ! is_admin() && ! is_singular() && ! is_404() && ! is_home() ) {
-                if ( ! $query->is_feed ) {
-                    $my_post_type = get_query_var( 'post_type' );
-                    if ( empty( $my_post_type ) ) {
-                        $args = array( 
-                            'public' => true , 
-                            '_builtin' => false
-                         );
-                        $output = 'names';
-                        $operator = 'and';
-
-                        $post_types = array_merge( array( 'download' ), array( 'post' ) );
-                        $query->set( 'post_type', $post_types );
-                    }
-                }
-            } 
-        }
-        
     }
-} 
+
+}
 
 
 /**
  * Register Downloads Calendar Widget
- *  
+ *
  * @access   private
  * @return   void
  * @since    1.0
@@ -380,17 +337,17 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 
 if ( ! function_exists( 'edd_widgets_pack_register_downloads_calendar_widget' ) ) {
     function edd_widgets_pack_register_downloads_calendar_widget() {
-        
+
         // get the EDD archives constant
         $archives = true;
         if( defined( 'EDD_DISABLE_ARCHIVE' ) && EDD_DISABLE_ARCHIVE == true ) {
             $archives = false;
         }
-        
+
         // no archives? then nothing to do here
         if ( $archives === false )
         return;
-        
+
         register_widget( 'EDD_Downloads_Calendar' );
     }
 }
