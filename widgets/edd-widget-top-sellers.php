@@ -52,105 +52,116 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
         function widget( $args, $instance )
         {
 
-            if ( false == $cache = get_transient( 'edd_widgets_top_sellers' ) ) {
+            // get the title and apply filters
+            $title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
 
-                // get the title and apply filters
-                $title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
+            // set the limit
+            $limit = isset( $instance['limit'] ) ? $instance['limit'] : 4;
 
-                // set the limit 
-                $limit = isset( $instance['limit'] ) ? $instance['limit'] : 4;
-                
-                // get show price boolean
-                $show_price = isset( $instance['show_price'] ) && $instance['show_price'] === 1 ? 1 : 0;
+            // get show price boolean
+            $show_price = isset( $instance['show_price'] ) && $instance['show_price'] == 1 ? 1 : 0;
 
-                // get the thumbnail boolean
-                $thumbnail = isset( $instance['thumbnail'] ) && $instance['thumbnail'] === 1 ? 1 : 0;
+            // get the thumbnail boolean
+            $thumbnail = isset( $instance['thumbnail'] ) && $instance['thumbnail'] == 1 ? 1 : 0;
 
-                // set the thumbnail size
-                $thumbnail_size = isset( $instance['thumbnail_size'] ) ? $instance['thumbnail_size'] : 80;
+            // set the thumbnail size
+            $thumbnail_size = isset( $instance['thumbnail_size'] ) ? $instance['thumbnail_size'] : 80;
 
-                // start collecting the output
-                $out = "";
+            // start collecting the output
+            $out = "";
 
-                // check if there is a title
-                if ( $title ) {
-                    // add the title to the ouput
-                    $out .= $args['before_title'] . $title . $args['after_title'];
-                }
-
-                // set the params
-                $params = array( 
-                    'post_type'      => 'download', 
-                    'posts_per_page' => $limit, 
-                    'post_status'    => 'publish', 
-                    'meta_key'       => '_edd_download_sales',
-                    'meta_compare'   => '>',
-                    'meta_value'     => 0, 
-                    'orderby'        => 'meta_value_num', 
-                 );
-
-                // get top sellers
-                $top_sellers = get_posts( $params );
-
-                // check top sellers
-                if ( is_null( $top_sellers ) || empty( $top_sellers ) ) {
-                    // return if there are no top sellers
-                    return;            
-                } else {
-                    // start the list output
-                    $out .= "<ul class=\"widget-top-sellers\">\n";
-
-                    // set the link structure
-                    $link = "<a href=\"%s\" title=\"%s\" class=\"%s\" rel=\"bookmark\">%s</a>\n";
-                    
-                    // filter the thumbnail size
-                    $thumbnail_size = apply_filters( 'edd_widgets_top_sellers_thumbnail_size', array( $thumbnail_size, $thumbnail_size ) );                    
-
-                    // loop trough all downloads
-                    foreach ( $top_sellers as $download ) {
-                        // get the title 
-                        $title = apply_filters( 'the_title', $download->post_title, $download->ID );
-						$title_attr = apply_filters( 'the_title_attribute', $download->post_title, $download->ID );
-
-                        // get the post thumbnail
-                        if ( $thumbnail === 1 && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $download->ID ) ) {
-                            $post_thumbnail = get_the_post_thumbnail( $download->ID, $thumbnail_size, array( 'title' => esc_attr( $title_attr ) ) ) . "\n";
-                            $out .= "<li class=\"widget-download-with-thumbnail\">\n";
-                            $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-thumb', $post_thumbnail );
-                        } else {
-                            $out .= "<li>\n";
-                        }
-
-                        // append the download's title
-                        $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-title', $title );
-
-                        // get the price
-                        if ( $show_price === 1 ) {
-                            if ( edd_has_variable_prices( $download->ID ) ) {
-                                $price = edd_price_range( $download->ID );
-                            } else {
-                                $price = edd_currency_filter( edd_get_download_price( $download->ID ) );
-                            }
-                            $out .= sprintf( "<span class=\"widget-download-price\">%s</span>\n", $price ); 
-                        }
-                        
-                        // finish this element
-                        $out .= "</li>\n";
-                    }
-                    // finish the list
-                    $out .= "</ul>\n";
-                }
-
-                // set the widget's containers
-                $cache = $args['before_widget'] . $out . $args['after_widget'];
-
-                // store the result on a temporal transient
-                set_transient( 'edd_widgets_top_sellers', $cache );
-
+            // check if there is a title
+            if ( $title ) {
+                // add the title to the ouput
+                $out .= $args['before_title'] . $title . $args['after_title'];
             }
 
-            echo $cache;
+            // set the params
+            $params = array(
+                'post_type'      => 'download',
+                'posts_per_page' => absint( $limit ),
+                'post_status'    => 'publish',
+                'orderby' => 'meta_value_num',
+                'meta_query'     => array(
+                    'relation' => 'AND',
+                    array(
+                        'key'     => '_edd_download_sales',
+                        'compare' => '>',
+                        'value'   => 0,
+                        'order'   => 'DESC',
+                    ),
+                ),
+             );
 
+            if ( $instance['exclude_free'] ) {
+                $params['meta_query'][] = array(
+                    'key'     => 'edd_price',
+                    'value'   => 0.00,
+                    'type'    => 'numeric',
+                    'compare' => '!='
+                );
+            }
+
+            // get top sellers
+            $top_sellers = get_posts( $params );
+
+            // check top sellers
+            if ( is_null( $top_sellers ) || empty( $top_sellers ) ) {
+                // return if there are no top sellers
+                return;
+
+            } else {
+
+                // start the list output
+                $out .= "<ul class=\"widget-top-sellers\">\n";
+
+                // set the link structure
+                $link = "<a href=\"%s\" title=\"%s\" class=\"%s\" rel=\"bookmark\">%s</a>\n";
+
+                // filter the thumbnail size
+                $thumbnail_size = apply_filters( 'edd_widgets_top_sellers_thumbnail_size', array( $thumbnail_size, $thumbnail_size ) );
+
+                // loop trough all downloads
+                foreach ( $top_sellers as $download ) {
+
+                    setup_postdata( $download );
+
+                    // get the title
+                    $title = apply_filters( 'the_title', $download->post_title, $download->ID );
+					$title_attr = apply_filters( 'the_title_attribute', $download->post_title, $download->ID );
+
+                    // get the post thumbnail
+                    if ( $thumbnail === 1 && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $download->ID ) ) {
+                        $post_thumbnail = get_the_post_thumbnail( $download->ID, $thumbnail_size, array( 'title' => esc_attr( $title_attr ) ) ) . "\n";
+                        $out .= "<li class=\"widget-download-with-thumbnail\">\n";
+                        $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-thumb', $post_thumbnail );
+                    } else {
+                        $out .= "<li>\n";
+                    }
+
+                    // append the download's title
+                    $out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-title', $title );
+
+                    // get the price
+                    if ( $show_price === 1 ) {
+                        if ( edd_has_variable_prices( $download->ID ) ) {
+                            $price = edd_price_range( $download->ID );
+                        } else {
+                            $price = edd_currency_filter( edd_get_download_price( $download->ID ) );
+                        }
+                        $out .= sprintf( "<span class=\"widget-download-price\">%s</span>\n", $price );
+                    }
+
+                    // finish this element
+                    $out .= "</li>\n";
+                }
+                wp_reset_postdata();
+                // finish the list
+                $out .= "</ul>\n";
+            }
+
+            // set the widget's containers
+            echo $args['before_widget'] . $out . $args['after_widget'];
         }
 
 
@@ -162,7 +173,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
         */
 
         function update( $new_instance, $old_instance )
-        {     
+        {
             $instance = $old_instance;
 
             // sanitize title
@@ -173,12 +184,13 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
             $instance['limit'] = ( ( bool ) preg_match( '/^\-?[0-9]+$/', $instance['limit'] ) ) && $instance['limit'] > -2 ? $instance['limit'] : 4;
 
             // sanitize show price
-            $instance['show_price'] = strip_tags( $new_instance['show_price'] );
-            $instance['show_price'] = $instance['show_price'] === '1' ? 1 : 0;
-            
+            $instance['show_price'] = isset( $new_instance['show_price'] ) ? (bool) $new_instance['show_price'] : 0;
+
+            // sanitize exclude free
+            $instance['exclude_free'] = isset( $new_instance['exclude_free'] ) ? (bool) $new_instance['exclude_free'] : 0;
+
             // sanitize thumbnail
-            $instance['thumbnail'] = strip_tags( $new_instance['thumbnail'] );
-            $instance['thumbnail'] = $instance['thumbnail'] === '1' ? 1 : 0;
+            $instance['thumbnail'] = isset( $new_instance['thumbnail'] ) ? (bool) $new_instance['thumbnail'] : 0;
 
             // sanitize thumbnail size
             $instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );
@@ -196,7 +208,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
          *
          * @return   void
          * @since    1.0
-        */    
+        */
 
         function delete_cache()
         {
@@ -216,6 +228,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
             $title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
             $limit = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : 4;
             $show_price = isset( $instance['show_price'] ) ? esc_attr( $instance['show_price'] ) : 0;
+            $exclude_free = isset( $instance['exclude_free'] ) ? esc_attr( $instance['exclude_free'] ) : 0;
             $thumbnail = isset( $instance['thumbnail'] ) ? esc_attr( $instance['thumbnail'] ) : 0;
             $thumbnail_size = isset( $instance['thumbnail_size'] ) ? esc_attr( $instance['thumbnail_size'] ) : 80;
 
@@ -231,6 +244,10 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
                 <p>
                     <input id="<?php echo $this->get_field_id( 'show_price' ); ?>" name="<?php echo $this->get_field_name( 'show_price' ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
                     <label for="<?php echo $this->get_field_id( 'show_price' ); ?>"><?php _e( 'Display price?', 'edd-widgets-pack' ); ?></label>
+                </p>
+                <p>
+                    <input id="<?php echo $this->get_field_id( 'exclude_free' ); ?>" name="<?php echo $this->get_field_name( 'exclude_free' ); ?>" type="checkbox" value="1" <?php checked( '1', $exclude_free ); ?>/>
+                    <label for="<?php echo $this->get_field_id( 'exclude_free' ); ?>"><?php printf( __( 'Exclude free %s?', 'edd-widgets-pack' ), strtolower( edd_get_label_plural() ) ); ?></label>
                 </p>
                 <p>
                     <input id="<?php echo $this->get_field_id( 'thumbnail' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail' ); ?>" type="checkbox" value="1" <?php checked( '1', $thumbnail ); ?>/>
@@ -249,7 +266,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
 
 /**
  * Register Top Sellers Widget
- *  
+ *
  * @access   private
  * @return   void
  * @since    1.0
