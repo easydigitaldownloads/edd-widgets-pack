@@ -3,18 +3,18 @@
 Plugin Name: Easy Digital Downloads - Widgets Pack
 Plugin URL: http://easydigitaldownloads.com/extensions/widgets-pack
 Description: A pack of widgets for Easy Digital Downloads.
-Version: 1.2.2
+Version: 1.2.3
 Author: Easy Digital Downloads
 Author URI: http://easydigitaldownloads.com
 Contributors: sksmatt
 */
 
-/** 
+/**
  * Initalization
  *
  * Runs on plugins_loaded, Loads inteinternationalization and
  * requires the bundled widgets.
- * 
+ *
  * @return   void
  * @access   private
  * @since    1.0
@@ -22,7 +22,7 @@ Contributors: sksmatt
 
 if ( ! function_exists( 'edd_widgets_pack_init' ) ) {
     function edd_widgets_pack_init() {
-        
+
         if( ! function_exists( 'edd_price' ) )
             return;
 
@@ -31,9 +31,9 @@ if ( ! function_exists( 'edd_widgets_pack_init' ) ) {
 
         // Handle licensing
         if( class_exists( 'EDD_License' ) ) {
-            $license = new EDD_License( __FILE__, 'Widgets Pack', '1.2.2', 'EDD Team' );
+            $license = new EDD_License( __FILE__, 'Widgets Pack', '1.2.3', 'EDD Team' );
         }
-        
+
         // register widgets
         require_once( plugin_dir_path( __FILE__ ) . 'widgets/edd-widget-top-sellers.php' );
         require_once( plugin_dir_path( __FILE__ ) . 'widgets/edd-widget-most-commented.php' );
