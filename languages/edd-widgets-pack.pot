@@ -1,0 +1,199 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Easy Digital Downloads - Widgets Pack\n"
+"POT-Creation-Date: 2016-10-03 17:25+0200\n"
+"PO-Revision-Date: 2016-10-03 17:25+0200\n"
+"Last-Translator: FX Bénard <fx@fxbenard.com>\n"
+"Language-Team: FX Bénard <fx@fxbenard.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: edd-widgets-pack.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: widgets/edd-widget-archives.php:42
+msgid "EDD Archives"
+msgstr ""
+
+#: widgets/edd-widget-archives.php:42
+#, php-format
+msgid "A monthly archive of your site's %s."
+msgstr ""
+
+#: widgets/edd-widget-archives.php:179
+#: widgets/edd-widget-downloads-calendar.php:133
+#: widgets/edd-widget-featured-download.php:222
+#: widgets/edd-widget-most-commented.php:226
+#: widgets/edd-widget-most-recent.php:239
+#: widgets/edd-widget-random-download.php:184
+#: widgets/edd-widget-related-downloads.php:276
+#: widgets/edd-widget-top-sellers.php:237
+msgid "Title:"
+msgstr ""
+
+#: widgets/edd-widget-archives.php:184
+#, php-format
+msgid "Show %s counts?"
+msgstr ""
+
+#: widgets/edd-widget-downloads-calendar.php:42
+#, php-format
+msgid "EDD %s Calendar"
+msgstr ""
+
+#: widgets/edd-widget-downloads-calendar.php:42
+#, php-format
+msgid "A calendar of your site's EDD %s."
+msgstr ""
+
+#. translators: Calendar caption: 1: month name, 2: 4-digit year
+#: widgets/edd-widget-downloads-calendar.php:205
+#, php-format
+msgctxt "calendar caption"
+msgid "%1$s %2$s"
+msgstr ""
+
+#: widgets/edd-widget-downloads-calendar.php:231
+#: widgets/edd-widget-downloads-calendar.php:239
+#, php-format
+msgid "View %3$s for %1$s %2$s"
+msgstr ""
+
+#: widgets/edd-widget-featured-download.php:39
+#, php-format
+msgid "EDD Featured %s"
+msgstr ""
+
+#: widgets/edd-widget-featured-download.php:39
+#, php-format
+msgid "A featured EDD %s."
+msgstr ""
+
+#: widgets/edd-widget-featured-download.php:237
+#: widgets/edd-widget-most-commented.php:235
+#: widgets/edd-widget-most-recent.php:252
+#: widgets/edd-widget-random-download.php:189
+#: widgets/edd-widget-related-downloads.php:285
+#: widgets/edd-widget-top-sellers.php:246
+msgid "Display price?"
+msgstr ""
+
+#: widgets/edd-widget-featured-download.php:241
+msgid "Display thumbnail?"
+msgstr ""
+
+#: widgets/edd-widget-featured-download.php:244
+#: widgets/edd-widget-most-commented.php:242
+#: widgets/edd-widget-most-recent.php:259
+#: widgets/edd-widget-random-download.php:196
+#: widgets/edd-widget-related-downloads.php:292
+#: widgets/edd-widget-top-sellers.php:257
+msgid "Size of the thumbnails, e.g. <em>80</em> = 80x80px"
+msgstr ""
+
+#: widgets/edd-widget-most-commented.php:42
+msgid "EDD Most Commented"
+msgstr ""
+
+#: widgets/edd-widget-most-commented.php:42
+#, php-format
+msgid "A list of EDD most commented %s."
+msgstr ""
+
+#: widgets/edd-widget-most-commented.php:230
+#: widgets/edd-widget-most-recent.php:247
+#: widgets/edd-widget-related-downloads.php:280
+#: widgets/edd-widget-top-sellers.php:241
+#, php-format
+msgid "Number of %s to show:"
+msgstr ""
+
+#: widgets/edd-widget-most-commented.php:239
+#: widgets/edd-widget-most-recent.php:256
+#: widgets/edd-widget-random-download.php:193
+#: widgets/edd-widget-related-downloads.php:289
+#: widgets/edd-widget-top-sellers.php:254
+msgid "Display thumbnails?"
+msgstr ""
+
+#: widgets/edd-widget-most-recent.php:42
+msgid "EDD Most Recent"
+msgstr ""
+
+#: widgets/edd-widget-most-recent.php:42
+#, php-format
+msgid "A list of EDD most recent %s."
+msgstr ""
+
+#: widgets/edd-widget-most-recent.php:243
+#, php-format
+msgid "Number of %s to skip:"
+msgstr ""
+
+#: widgets/edd-widget-most-recent.php:263
+#, php-format
+msgid "Display %s from category:"
+msgstr ""
+
+#: widgets/edd-widget-most-recent.php:265
+msgid "All"
+msgstr ""
+
+#: widgets/edd-widget-random-download.php:34
+#, php-format
+msgid "EDD Random %s"
+msgstr ""
+
+#: widgets/edd-widget-random-download.php:34
+#, php-format
+msgid "A random EDD %s."
+msgstr ""
+
+#: widgets/edd-widget-related-downloads.php:40
+#, php-format
+msgid "EDD Related %s"
+msgstr ""
+
+#: widgets/edd-widget-related-downloads.php:40
+#, php-format
+msgid "A list of EDD related %s."
+msgstr ""
+
+#: widgets/edd-widget-top-sellers.php:41
+msgid "EDD Top Sellers"
+msgstr ""
+
+#: widgets/edd-widget-top-sellers.php:41
+#, php-format
+msgid "A list of EDD top selling %s."
+msgstr ""
+
+#: widgets/edd-widget-top-sellers.php:250
+#, php-format
+msgid "Exclude free %s?"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Easy Digital Downloads - Widgets Pack"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A pack of widgets for Easy Digital Downloads."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Easy Digital Downloads"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://easydigitaldownloads.com"
+msgstr ""

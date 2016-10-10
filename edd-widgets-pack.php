@@ -7,6 +7,7 @@ Version: 1.2.5
 Author: Easy Digital Downloads
 Author URI: http://easydigitaldownloads.com
 Contributors: sksmatt
+Text Domain: edd-widgets-pack
 */
 
 /**
@@ -27,7 +28,7 @@ if ( ! function_exists( 'edd_widgets_pack_init' ) ) {
             return;
 
         // load internationalization
-        load_plugin_textdomain( 'edd-widgets-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/lan/' );
+        load_plugin_textdomain( 'edd-widgets-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
         // Handle licensing
         if( class_exists( 'EDD_License' ) ) {
