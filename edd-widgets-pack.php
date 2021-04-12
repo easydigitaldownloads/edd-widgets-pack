@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Easy Digital Downloads - Widgets Pack
- * Plugin URL: https://easydigitaldownloads.com/downloads/widgets-bundle/
+ * Plugin URI: https://easydigitaldownloads.com/downloads/widgets-bundle/
  * Description: A pack of widgets for Easy Digital Downloads.
  * Version: 1.2.6
  * Author: Sandhills Development, LLC
