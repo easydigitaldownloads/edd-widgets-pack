@@ -354,7 +354,7 @@ if ( ! function_exists( 'edd_widgets_pack_register_downloads_calendar_widget' ) 
 			$archives = false;
 		}
 
-		// no archives? then nothing to do .
+		// no archives? then nothing to do here.
 		if ( false === $archives ) {
 			return;
 		}

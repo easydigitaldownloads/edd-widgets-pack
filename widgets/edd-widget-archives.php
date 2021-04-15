@@ -79,7 +79,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 					)
 				);
 
-				// remove .
+				// remove filter.
 				remove_filter( 'getarchives_where', array( &$this, 'getarchives_where_filter' ), 10, 2 );
 
 				remove_filter( 'month_link', array( $this, 'month_link' ), 10, 3 );

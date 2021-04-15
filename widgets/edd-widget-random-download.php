@@ -80,7 +80,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 				// start the list output.
 				$out .= "<ul class=\"widget-random-download\">\n";
 
-				// set the link .
+				// set the link structure.
 				$link = "<a href=\"%s\" title=\"%s\" class=\"%s\" rel=\"bookmark\">%s</a>\n";
 
 				// filter the thumbnail size.

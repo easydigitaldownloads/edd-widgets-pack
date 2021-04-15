@@ -65,7 +65,7 @@ if ( ! class_exists( 'EDD_Most_Commented' ) ) {
 				$show_price = isset( $instance['show_price'] ) && 1 === $instance['show_price'] ? 1 : 0;
 
 				// get the thumbnail boolean.
-				$thumbnail = isset( $instance['thumbnail'] ) &&1 === $instance['thumbnail'] ? 1 : 0;
+				$thumbnail = isset( $instance['thumbnail'] ) && 1 === $instance['thumbnail'] ? 1 : 0;
 
 				// set the thumbnail size.
 				$thumbnail_size = isset( $instance['thumbnail_size'] ) ? $instance['thumbnail_size'] : 80;
