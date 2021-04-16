@@ -40,7 +40,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 		function widget( $args, $instance ) {
 
 			// get the title and apply filters.
-			$title = apply_filters( 'widget_title', $instanc['title'] ? $instance['title'] : '' );
+			$title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
 
 			// get show price boolean.
 			$show_price = isset( $instance['show_price'] ) && 1 === $instance['show_price'] ? 1 : 0;
