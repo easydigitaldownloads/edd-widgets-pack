@@ -305,7 +305,7 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 				}
 				$newrow = false;
 
-				if ( $day == gmdate( 'j', current_time( 'timestamp' ) ) && gmdate( 'm', current_time( 'timestamp' ) ) === $thismonth && gmdate( 'Y', current_time( 'timestamp' ) ) === $thisyear ) {
+				if ( gmdate( 'j', current_time( 'timestamp' ) ) === $day && gmdate( 'm', current_time( 'timestamp' ) ) === $thismonth && gmdate( 'Y', current_time( 'timestamp' ) ) === $thisyear ) {
 					$calendar_output .= '<td id="today">';
 				} else {
 					$calendar_output .= '<td>';

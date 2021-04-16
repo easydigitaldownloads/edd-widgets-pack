@@ -108,8 +108,7 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 			$post_type = $post->post_type;
 			$c         = 0;
 			// loop and get related posts.
-			$product_number = count( $related_downloads );
-			while ( $product_number < $limit && isset( $terms_in[ $c ] ) ) {
+			while ( count( $related_downloads ) < $limit && isset( $terms_in[ $c ] ) ) {
 				// check for tax and terms.
 				if ( ! isset( $terms_in[ $c ]['tax'] ) || ! isset( $terms_in[ $c ]['terms'] ) ) {
 					++$c;
@@ -226,12 +225,10 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 			$instance['limit'] = ( (bool) preg_match( '/^\-?[0-9]+$/', $instance['limit'] ) ) && $instance['limit'] > -2 ? $instance['limit'] : 4;
 
 			// sanitize show price.
-			$instance['show_price'] = ! empty( $new_instance['show_price'] ) ? strip_tags( $new_instance['show_price'] ) : '';
-			$instance['show_price'] = '1' === $instance['show_price'] ? 1 : 0;
+			$instance['show_price'] = ! empty( $new_instance['show_price'] ) && '1' === $new_instance['show_price'] ? 1 : 0;
 
 			// sanitize thumbnail.
-			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) ? strip_tags( $new_instance['thumbnail'] ) : '';
-			$instance['thumbnail'] = '1' === $instance['thumbnail'] ? 1 : 0;
+			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) && '1' === $new_instance['thumbnail'] ? 1 : 0;
 
 			// sanitize thumbnail size.
 			$instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );

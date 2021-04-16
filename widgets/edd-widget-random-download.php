@@ -123,7 +123,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 
 			}
 
-			// set the widgets containers.
+			// set the widget's containers.
 			echo $args['before_widget'] . $out . $args['after_widget'];
 
 		}
@@ -141,12 +141,10 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 
 			// sanitize show price.
-			$instance['show_price'] = ! empty( $new_instance['show_price'] ) ? strip_tags( $new_instance['show_price'] ) : '';
-			$instance['show_price'] = '1' === $instance['show_price'] ? 1 : 0;
+			$instance['show_price'] = ! empty( $new_instance['show_price'] ) && '1' === $new_instance['show_price'] ? 1 : 0;
 
 			// sanitize thumbnail.
-			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) ? strip_tags( $new_instance['thumbnail'] ) : '';
-			$instance['thumbnail'] = '1' === $instance['thumbnail'] ? 1 : 0;
+			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) && '1' === $new_instance['thumbnail'] ? 1 : 0;
 
 			// sanitize thumbnail size.
 			$instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );
@@ -162,7 +160,6 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-
 		function form( $instance ) {
 			$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 			$show_price = isset( $instance['show_price'] ) ? esc_attr( $instance['show_price'] ) : 0;

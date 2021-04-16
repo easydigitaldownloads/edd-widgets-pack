@@ -49,7 +49,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 
 			if ( false === $cache = get_transient( 'edd_widgets_archives' ) ) {
 
-				// get the title and apply .
+				// get the title and apply filters.
 				$title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
 
 				// get show count boolean.
@@ -134,8 +134,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 
 			// sanitize show count.
-			$instance['show_count'] = ! empty( $new_instance['show_count'] ) ? strip_tags( $new_instance['show_count'] ) : '';
-			$instance['show_count'] = '1' === $instance['show_count'] ? 1 : 0;
+			$instance['show_count'] = ! empty( $new_instance['show_count'] ) && '1' === $new_instance['show_count'] ? 1 : 0;
 
 			// delete cache.
 			$this->delete_cache();
