@@ -27,7 +27,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function __construct() {
+		public function __construct() {
 			parent::__construct( false, sprintf( __( 'EDD Random %s', 'edd-widgets-pack' ), edd_get_label_singular() ), array( 'description' => sprintf( __( 'A random EDD %s.', 'edd-widgets-pack' ), edd_get_label_singular( true ) ) ) );
 		}
 
@@ -37,7 +37,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function widget( $args, $instance ) {
+		public function widget( $args, $instance ) {
 
 			// get the title and apply filters.
 			$title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
@@ -134,7 +134,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 		 * @return   array
 		 * @since    1.0
 		 */
-		function update( $new_instance, $old_instance ) {
+		public function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 
 			// sanitize title.
@@ -160,7 +160,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function form( $instance ) {
+		public function form( $instance ) {
 			$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 			$show_price = isset( $instance['show_price'] ) ? esc_attr( $instance['show_price'] ) : 0;
 			$thumbnail = isset( $instance['thumbnail'] ) ? esc_attr( $instance['thumbnail'] ) : 0;

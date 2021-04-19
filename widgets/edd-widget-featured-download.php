@@ -28,7 +28,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function __construct() {
+		public function __construct() {
 			// hook updates.
 			add_action( 'save_post', array( &$this, 'delete_cache' ) );
 			add_action( 'delete_post', array( &$this, 'delete_cache' ) );
@@ -43,7 +43,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function widget( $args, $instance ) {
+		public function widget( $args, $instance ) {
 
 			if ( false == $cache = get_transient( 'edd_widgets_featured_download_' . $this->id ) ) {
 
@@ -150,7 +150,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 * @return   array
 		 * @since    1.0
 		 */
-		function update( $new_instance, $old_instance ) {
+		public function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 
 			// sanitize title.
@@ -182,7 +182,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function delete_cache() {
+		public function delete_cache() {
 			delete_transient( 'edd_widgets_featured_download' );
 		}
 
@@ -192,7 +192,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function form( $instance ) {
+		public function form( $instance ) {
 			$title          = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 			$download       = isset( $instance['download'] ) ? esc_attr( $instance['download'] ) : 0;
 			$show_price     = isset( $instance['show_price'] ) ? esc_attr( $instance['show_price'] ) : 0;
@@ -241,7 +241,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 */
 		function get_downloads() {
 			// set the params.
-			$params = array( 
+			$params = array(
 				'post_type'      => 'download',
 				'posts_per_page' => -1,
 				'post_status'    => 'publish',

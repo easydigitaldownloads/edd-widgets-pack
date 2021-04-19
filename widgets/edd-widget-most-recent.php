@@ -28,7 +28,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function __construct() {
+		public function __construct() {
 			// hook updates.
 			add_action( 'save_post', array( &$this, 'delete_cache' ) );
 			add_action( 'delete_post', array( &$this, 'delete_cache' ) );
@@ -45,7 +45,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function widget( $args, $instance ) {
+		public function widget( $args, $instance ) {
 
 			// get the title and apply filters.
 			$title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
@@ -156,7 +156,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 		 * @return   array
 		 * @since    1.0
 		 */
-		function update( $new_instance, $old_instance ) {
+		public function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 
 			// sanitize title.
@@ -196,7 +196,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function delete_cache() {
+		public function delete_cache() {
 			delete_transient( 'edd_widgets_most_recent' );
 		}
 
@@ -207,7 +207,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function form( $instance ) {
+		public function form( $instance ) {
 			$title          = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 			$offset         = isset( $instance['offset'] ) ? esc_attr( $instance['offset'] ) : 0;
 			$limit          = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : 4;

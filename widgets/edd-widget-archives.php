@@ -28,7 +28,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function __construct() {
+		public function __construct() {
 			// hook updates.
 			add_action( 'save_post', array( &$this, 'delete_cache' ) );
 			add_action( 'delete_post', array( &$this, 'delete_cache' ) );
@@ -44,8 +44,8 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		 *
 		 * @return   void
 		 * @since    1.0
-		*/
-		function widget( $args, $instance ) {
+		 */
+		public function widget( $args, $instance ) {
 
 			if ( false === $cache = get_transient( 'edd_widgets_archives' ) ) {
 
@@ -106,7 +106,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		 * @return   string
 		 * @since    1.0
 		 */
-		function getarchives_where_filter( $where, $r ) {
+		public function getarchives_where_filter( $where, $r ) {
 			return str_replace( "post_type = 'post'", "post_type = 'download'", $where );
 		}
 
@@ -117,7 +117,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		 * @since 1.3
 		 * @return string
 		 */
-		function month_link( $monthlink, $year, $month ) {
+		public function month_link( $monthlink, $year, $month ) {
 			return $monthlink . '?post_type="download"';
 		}
 
@@ -127,7 +127,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		 * @return   array
 		 * @since    1.0
 		 */
-		function update( $new_instance, $old_instance ) {
+		public function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 
 			// sanitize title.
@@ -148,7 +148,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function delete_cache() {
+		public function delete_cache() {
 			delete_transient( 'edd_widgets_archives' );
 		}
 
@@ -158,7 +158,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function form( $instance ) {
+		public function form( $instance ) {
 			$title      = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 			$show_count = isset( $instance['show_count'] ) ? esc_attr( $instance['show_count'] ) : 0;
 			?>
