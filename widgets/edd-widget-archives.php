@@ -35,7 +35,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 			add_action( 'update_option_start_of_week', array( &$this, 'delete_cache' ) );
 			add_action( 'update_option_gmt_offset', array( &$this, 'delete_cache' ) );
 
-			// contruct widget.
+			// construct widget.
 			parent::__construct( false, __( 'EDD Archives', 'edd-widgets-pack' ), array( 'description' => sprintf( __( 'A monthly archive of your site\'s %s.', 'edd-widgets-pack' ), edd_get_label_plural( true ) ) ) );
 		}
 
@@ -60,7 +60,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 
 				// check if there is a title.
 				if ( $title ) {
-					// add the title to the ouput.
+					// add the title to the output.
 					$out .= $args['before_title'] . $title . $args['after_title'];
 				}
 

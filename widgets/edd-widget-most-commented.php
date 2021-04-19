@@ -123,7 +123,7 @@ if ( ! class_exists( 'EDD_Most_Commented' ) ) {
 						$out .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-title', $title );
 
 						// get the price.
-						if ( $show_price === 1 ) {
+						if ( 1 === $show_price ) {
 							if ( edd_has_variable_prices( $download->ID ) ) {
 								$price = edd_price_range( $download->ID );
 							} else {
