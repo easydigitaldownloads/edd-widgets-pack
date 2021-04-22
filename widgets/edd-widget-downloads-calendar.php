@@ -134,7 +134,7 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 		 * @return   void
 		 * @since    1.0
 		 */
-		function get_calendar( $initial = true, $echo = true ) {
+		private function get_calendar( $initial = true, $echo = true ) {
 			global $wpdb, $m, $monthnum, $year, $wp_locale, $posts;
 
 			$cache = array();

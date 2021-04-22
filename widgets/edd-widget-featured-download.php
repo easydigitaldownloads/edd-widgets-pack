@@ -239,7 +239,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 * @return   array
 		 * @since    1.0
 		 */
-		function get_downloads() {
+		protected function get_downloads() {
 			// set the params.
 			$params = array(
 				'post_type'      => 'download',
