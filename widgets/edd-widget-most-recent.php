@@ -35,7 +35,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 			add_action( 'update_option_start_of_week', array( &$this, 'delete_cache' ) );
 			add_action( 'update_option_gmt_offset', array( &$this, 'delete_cache' ) );
 
-			// contruct widget.
+			// construct widget.
 			parent::__construct( false, __( 'EDD Most Recent', 'edd-widgets-pack' ), array( 'description' => sprintf( __( 'A list of EDD most recent %s.', 'edd-widgets-pack' ), edd_get_label_plural( true ) ) ) );
 		}
 
