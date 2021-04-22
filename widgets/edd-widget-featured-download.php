@@ -45,7 +45,8 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 
-			if ( false == $cache = get_transient( 'edd_widgets_featured_download_' . $this->id ) ) {
+			$cache = get_transient( 'edd_widgets_featured_download_' . $this->id );
+			if ( false === $cache ) {
 
 				// get the title and apply filters.
 				$title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );

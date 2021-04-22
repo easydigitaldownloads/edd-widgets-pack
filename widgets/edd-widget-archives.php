@@ -47,7 +47,8 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 
-			if ( false === $cache = get_transient( 'edd_widgets_archives' ) ) {
+			$cache = get_transient( 'edd_widgets_archives' );
+			if ( false === $cache ) {
 
 				// get the title and apply filters.
 				$title = apply_filters( 'widget_title', $instance['title'] ? $instance['title'] : '' );
