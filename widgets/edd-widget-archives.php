@@ -156,6 +156,7 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 		/**
 		 * Form
 		 *
+		 * @param array $instance This widget's instance.
 		 * @return   void
 		 * @since    1.0
 		 */
@@ -164,12 +165,19 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 			$show_count = isset( $instance['show_count'] ) ? esc_attr( $instance['show_count'] ) : 0;
 			?>
 			<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'edd-widgets-pack' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>"/>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'edd-widgets-pack' ); ?></label>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_html( $title ); ?>"/>
 			</p>
 			<p>
-			<input id="<?php echo $this->get_field_id( 'show_count' ); ?>" name="<?php echo $this->get_field_name( 'show_count' ); ?>" type="checkbox" value="1" <?php checked( '1', $show_count ); ?>/>
-			<label for="<?php echo $this->get_field_id( 'show_count' ); ?>"><?php printf( __('Show %s counts?', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?></label>
+				<input id="<?php echo esc_attr( $this->get_field_id( 'show_count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_count' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_count ); ?>/>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'show_count' ) ); ?>">
+				<?php
+				sprintf(
+					/* translators: the plural post type label */
+					__( 'Show %s counts?', 'edd-widgets-pack' ), edd_get_label_plural( true )
+				);
+				?>
+				</label>
 			</p>
 			<?php
 		}
