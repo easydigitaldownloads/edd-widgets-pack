@@ -104,7 +104,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 						$title_attr = apply_filters( 'the_title_attribute', $download->post_title, $download->ID );
 
 						// get the post .
-						if ( 1 === $thumbnail && function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $download->ID ) ) {
+						if ( 1 === $thumbnail && has_post_thumbnail( $download->ID ) ) {
 							$post_thumbnail = get_the_post_thumbnail( $download->ID, $thumbnail_size, array( 'title' => esc_attr( $title_attr ) ) ) . "\n";
 							$out           .= "<li class=\"widget-download-with-thumbnail\">\n";
 							$out           .= sprintf( $link, get_permalink( $download->ID ), esc_attr( $title_attr ), 'widget-download-thumb', $post_thumbnail );
