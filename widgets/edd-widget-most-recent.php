@@ -164,11 +164,9 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 
 			// sanitize limit.
 			$instance['limit'] = strip_tags( $new_instance['limit'] );
-			$instance['limit'] = ( ( bool ) preg_match( '/^\-?[0-9]+$/', $instance['limit'] ) ) && $instance['limit'] > -2 ? $instance['limit'] : 4;
 
 			// sanitize offset.
 			$instance['offset'] = strip_tags( $new_instance['offset'] );
-			$instance['offset'] = ( ( bool ) preg_match( '/^[0-9]+$/', $instance['offset'] ) ) ? $instance['offset'] : 4;
 
 			// sanitize show price.
 			$instance['show_price'] = ! empty( $new_instance['show_price'] ) && '1' === $new_instance['show_price'] ? 1 : 0;
@@ -178,7 +176,6 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 
 			// sanitize thumbnail size.
 			$instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );
-			$instance['thumbnail_size'] = ( ( bool ) preg_match( '/^[0-9]+$/', $instance['thumbnail_size'] ) ) ? $instance['thumbnail_size'] : 80;
 
 			// sanitize category.
 			$instance['category'] = $new_instance['category'] ? strip_tags( $new_instance['category'] ) : 'edd-all-categories';
@@ -225,11 +222,11 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 			</p>
 			<p>
 				<label for="<?php echo $this->get_field_id( 'offset' ); ?>"><?php printf( __('Number of %s to skip:', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?></label>
-				<input class="small" size="3" id="<?php echo $this->get_field_id( 'offset' ); ?>" name="<?php echo $this->get_field_name( 'offset' ); ?>" type="text" value="<?php echo $offset; ?>"/>
+				<input type="number" min="0" size="3" id="<?php echo $this->get_field_id( 'offset' ); ?>" name="<?php echo $this->get_field_name( 'offset' ); ?>" type="text" value="<?php echo $offset; ?>"/>
 			</p>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php printf( __('Number of %s to show:', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?></label>
-				<input class="small" size="3" id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" type="text" value="<?php echo $limit; ?>"/>
+				<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php printf( __( 'Number of %s to show:', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?></label>
+				<input type="number" min="-1" size="3" id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" type="text" value="<?php echo $limit; ?>"/>
 			</p>
 			<p>
 				<input id="<?php echo $this->get_field_id( 'show_price' ); ?>" name="<?php echo $this->get_field_name( 'show_price' ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
@@ -241,7 +238,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 			</p>
 			<p>
 				<label for="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>"><?php _e( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', 'edd-widgets-pack' ); ?></label>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail_size' ); ?>" type="text" value="<?php echo $thumbnail_size; ?>" />
+				<input type="number" min="0" class="widefat" id="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail_size' ); ?>" type="text" value="<?php echo $thumbnail_size; ?>" />
 			</p>
 			<p>
 				<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php printf( __( 'Display %s from category:', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?></label>
