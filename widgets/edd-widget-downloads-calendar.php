@@ -297,15 +297,18 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 			if ( 0 !== $pad ) {
 				$calendar_output .= "\n\t\t" . '<td colspan="' . esc_attr( $pad ) . '" class="pad">&nbsp;</td>';
 			}
+
 			$daysinmonth = intval( date( 't', $unixmonth ) );
+
 			for ( $day = 1; $day <= $daysinmonth; ++$day ) {
 				if ( isset( $newrow ) && $newrow ) {
 					$calendar_output .= "\n\t</tr>\n\t<tr>\n\t\t";
 				}
 				$newrow = false;
 
-				if ( gmdate( 'j', current_time( 'timestamp' ) ) === $day && gmdate( 'm', current_time( 'timestamp' ) ) === $thismonth && gmdate( 'Y', current_time( 'timestamp' ) ) === $thisyear ) {
+				if ( (int) gmdate( 'j', current_time( 'timestamp' ) ) === $day && gmdate( 'm', current_time( 'timestamp' ) ) === $thismonth && gmdate( 'Y', current_time( 'timestamp' ) ) === $thisyear ) {
 					$calendar_output .= '<td id="today">';
+					// should we do something to the calendar date for today?  Bold?
 				} else {
 					$calendar_output .= '<td>';
 				}
