@@ -294,6 +294,7 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 
 			// See how much we should pad at the beginning of the month.
 			$pad = (int) calendar_week_mod( date( 'w', $unixmonth ) - $week_begins );
+
 			if ( 0 !== $pad ) {
 				$calendar_output .= "\n\t\t" . '<td colspan="' . esc_attr( $pad ) . '" class="pad">&nbsp;</td>';
 			}
@@ -301,6 +302,8 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 			$daysinmonth = intval( date( 't', $unixmonth ) );
 
 			for ( $day = 1; $day <= $daysinmonth; ++$day ) {
+				$days_into_week = (int) calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
+
 				if ( isset( $newrow ) && $newrow ) {
 					$calendar_output .= "\n\t</tr>\n\t<tr>\n\t\t";
 				}
@@ -308,7 +311,7 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 
 				if ( (int) gmdate( 'j', current_time( 'timestamp' ) ) === $day && gmdate( 'm', current_time( 'timestamp' ) ) === $thismonth && gmdate( 'Y', current_time( 'timestamp' ) ) === $thisyear ) {
 					$calendar_output .= '<td id="today">';
-					// should we do something to the calendar date for today?  Bold?
+					// should we do something to the calendar date for today?  Make the border bold?
 				} else {
 					$calendar_output .= '<td>';
 				}
@@ -319,15 +322,15 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 					$calendar_output .= $day;
 				}
 				$calendar_output .= '</td>';
-
-				if ( 6 === (int) calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins ) ) {
+				if ( 6 === (int) $days_into_week ) {
 					$newrow = true;
 				}
 			}
 
 			// See how much we should pad at the end of the month.
-			$pad = 7 - (int) calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
-			if ( 0 !== $pad && 7 !== $pad ) {
+			$end_of_month_pad = 7 - (int) calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
+
+			if ( 0 !== $end_of_month_pad && 7 !== $end_of_month_pad ) {
 				$calendar_output .= "\n\t\t" . '<td class="pad" colspan="' . esc_attr( $pad ) . '">&nbsp;</td>';
 			}
 			$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
