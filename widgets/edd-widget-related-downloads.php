@@ -108,10 +108,11 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 			$post_type = $post->post_type;
 			$c         = 0;
 			// loop and get related posts.
-			while ( count( $related_downloads ) < $limit && isset( $terms_in[ $c ] ) ) {
+			$related_count = count( $related_downloads );
+			while ( isset( $terms_in[ $c ] ) && $related_count < $limit ) {
 				// check for tax and terms.
 				if ( ! isset( $terms_in[ $c ]['tax'] ) || ! isset( $terms_in[ $c ]['terms'] ) ) {
-					++$c;
+					$c++;
 					continue;
 				}
 
@@ -137,7 +138,7 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 
 					if ( ! empty( $related ) ) {
 						foreach ( $related as $related_download ) {
-							if ( count( $related_downloads ) === $limit ) {
+							if ( $related_count === $limit ) {
 								break;
 							}
 							$related_downloads[ $related_download->ID ] = $related_download;
