@@ -212,37 +212,52 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
 		 * @since    1.0
 		 */
 		public function form( $instance ) {
-			$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-			$limit = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : 4;
-			$show_price = isset( $instance['show_price'] ) ? esc_attr( $instance['show_price'] ) : 0;
-			$exclude_free = isset( $instance['exclude_free'] ) ? esc_attr( $instance['exclude_free'] ) : 0;
-			$thumbnail = isset( $instance['thumbnail'] ) ? esc_attr( $instance['thumbnail'] ) : 0;
+			$title          = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+			$limit          = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : 4;
+			$show_price     = isset( $instance['show_price'] ) ? esc_attr( $instance['show_price'] ) : 0;
+			$exclude_free   = isset( $instance['exclude_free'] ) ? esc_attr( $instance['exclude_free'] ) : 0;
+			$thumbnail      = isset( $instance['thumbnail'] ) ? esc_attr( $instance['thumbnail'] ) : 0;
 			$thumbnail_size = isset( $instance['thumbnail_size'] ) ? esc_attr( $instance['thumbnail_size'] ) : 80;
 
 			?>
 				<p>
-					<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'edd-widgets-pack' ); ?></label>
-					<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>"/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr__( 'Title:', 'edd-widgets-pack' ); ?></label>
+					<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_html( $title ); ?>"/>
 				</p>
 				<p>
-					<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php printf( __('Number of %s to show:', 'edd-widgets-pack' ), edd_get_label_plural( true ) ); ?></label>
-					<input type="number" min="-1" size="3" id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" type="text" value="<?php echo $limit; ?>"/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
+					<?php
+					sprintf(
+						/* translators: the plural post type label */
+						__( 'Number of %s to show:', 'edd-widgets-pack' ), edd_get_label_plural( true )
+					);
+					?>
+					</label>
+					<input type="number" min="-1" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_html( $limit ); ?>"/>
 				</p>
 				<p>
-					<input id="<?php echo $this->get_field_id( 'show_price' ); ?>" name="<?php echo $this->get_field_name( 'show_price' ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'show_price' ); ?>"><?php _e( 'Display price?', 'edd-widgets-pack' ); ?></label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_price' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>"><?php esc_attr__( 'Display price?', 'edd-widgets-pack' ); ?></label>
 				</p>
 				<p>
-					<input id="<?php echo $this->get_field_id( 'exclude_free' ); ?>" name="<?php echo $this->get_field_name( 'exclude_free' ); ?>" type="checkbox" value="1" <?php checked( '1', $exclude_free ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'exclude_free' ); ?>"><?php printf( __( 'Exclude free %s?', 'edd-widgets-pack' ), strtolower( edd_get_label_plural() ) ); ?></label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'exclude_free' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'exclude_free' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $exclude_free ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'exclude_free' ) ); ?>">
+					<?php
+					sprintf(
+						/* translators: the plural post type label */
+						__( 'Exclude free %s?', 'edd-widgets-pack' ),
+						strtolower( edd_get_label_plural() )
+					);
+					?>
+					</label>
 				</p>
 				<p>
-					<input id="<?php echo $this->get_field_id( 'thumbnail' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail' ); ?>" type="checkbox" value="1" <?php checked( '1', $thumbnail ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'thumbnail' ); ?>"><?php _e( 'Display thumbnails?', 'edd-widgets-pack' ); ?></label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'thumbnail' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $thumbnail ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail' ) ); ?>"><?php esc_attr__( 'Display thumbnails?', 'edd-widgets-pack' ); ?></label>
 				</p>
 				<p>
-					<label for="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>"><?php _e( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', 'edd-widgets-pack' ); ?></label>
-					<input type="number" min="0" class="widefat" id="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail_size' ); ?>" type="text" value="<?php echo $thumbnail_size; ?>" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>"><?php esc_attr__( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', 'edd-widgets-pack' ); ?></label>
+					<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" type="text" value="<?php echo esc_html( $thumbnail_size ); ?>" />
 				</p>
 			<?php
 		}
