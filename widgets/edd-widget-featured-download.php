@@ -203,31 +203,32 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 
 			?>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'edd-widgets-pack' ); ?></label>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>"/>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr__( 'Title:', 'edd-widgets-pack' ); ?></label>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_html( $title ); ?>"/>
 			</p>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'download' ); ?>"><?php echo edd_get_label_singular(); ?>:</label>
-				<select name="<?php echo $this->get_field_name( 'download' ); ?>" id="<?php echo $this->get_field_id( 'download' ); ?>">
-				<?php if ( ! empty( $downloads ) ) {
+				<label for="<?php echo esc_attr( $this->get_field_id( 'download' ) ); ?>"><?php echo esc_attr( edd_get_label_singular() ); ?>:</label>
+				<select name="<?php echo esc_attr( $this->get_field_name( 'download' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'download' ) ); ?>">
+				<?php
+				if ( ! empty( $downloads ) ) {
 					foreach ( $downloads as $key => $download_details ) {
-						echo '<option value="' . $download_details['value'] . '" ' . selected( $download_details['value'], $download ) . '>' . $download_details['title'] . '</option>';
+						echo '<option value="' . esc_attr( $download_details['value'] ) . '" ' . selected( $download_details['value'], $download ) . '>' . esc_attr( $download_details['title'] ) . '</option>';
 					}
 				}
 				?>
 				</select>
 			</p>
 			<p>
-				<input id="<?php echo $this->get_field_id( 'show_price' ); ?>" name="<?php echo $this->get_field_name( 'show_price' ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
-				<label for="<?php echo $this->get_field_id( 'show_price' ); ?>"><?php _e( 'Display price?', 'edd-widgets-pack' ); ?></label> 
+				<input id="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_price' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>"><?php esc_attr__( 'Display price?', 'edd-widgets-pack' ); ?></label>
 			</p>
 			<p>
-				<input id="<?php echo $this->get_field_id( 'thumbnail' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail' ); ?>" type="checkbox" value="1" <?php checked( '1', $thumbnail ); ?>/>
-				<label for="<?php echo $this->get_field_id( 'thumbnail' ); ?>"><?php _e( 'Display thumbnail?', 'edd-widgets-pack' ); ?></label> 
+				<input id="<?php echo esc_attr( $this->get_field_id( 'thumbnail' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $thumbnail ); ?>/>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail' ) ); ?>"><?php esc_attr__( 'Display thumbnail?', 'edd-widgets-pack' ); ?></label>
 			</p>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>"><?php _e( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', 'edd-widgets-pack' ); ?></label> 
-				<input type="number" min="0" class="widefat" id="<?php echo $this->get_field_id( 'thumbnail_size' ); ?>" name="<?php echo $this->get_field_name( 'thumbnail_size' ); ?>" type="text" value="<?php echo $thumbnail_size; ?>" />
+				<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>"><?php esc_attr__( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', 'edd-widgets-pack' ); ?></label>
+				<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" type="text" value="<?php echo esc_html( $thumbnail_size ); ?>" />
 			</p>
 			<?php
 		}
