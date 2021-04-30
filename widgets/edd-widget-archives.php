@@ -174,7 +174,8 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 				<?php
 				sprintf(
 					/* translators: the plural post type label */
-					__( 'Show %s counts?', 'edd-widgets-pack' ), edd_get_label_plural( true )
+					__( 'Show %s counts?', 'edd-widgets-pack' ),
+					edd_get_label_plural( true )
 				);
 				?>
 				</label>
