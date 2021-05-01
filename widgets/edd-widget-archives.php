@@ -172,10 +172,10 @@ if ( ! class_exists( 'EDD_Archives' ) ) {
 				<input id="<?php echo esc_attr( $this->get_field_id( 'show_count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_count' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_count ); ?>/>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'show_count' ) ); ?>">
 				<?php
-				sprintf(
+				printf(
 					/* translators: the plural post type label */
-					__( 'Show %s counts?', 'edd-widgets-pack' ),
-					edd_get_label_plural( true )
+					esc_html__( 'Show %s counts?', 'edd-widgets-pack' ),
+					esc_attr( edd_get_label_plural( true ) )
 				);
 				?>
 				</label>

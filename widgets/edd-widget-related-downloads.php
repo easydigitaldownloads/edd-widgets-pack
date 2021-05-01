@@ -271,10 +271,10 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 				<p>
 					<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
 					<?php
-					sprintf(
+					printf(
 						/* translators: the plural post type label */
-						__( 'Number of %s to show:', 'edd-widgets-pack' ),
-						edd_get_label_plural( true )
+						esc_html__( 'Number of %s to show:', 'edd-widgets-pack' ),
+						esc_attr( edd_get_label_plural( true ) )
 					);
 					?>
 					</label>
@@ -289,7 +289,7 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 					<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail' ) ); ?>"><?php esc_html_e( 'Display thumbnails?', 'edd-widgets-pack' ); ?></label>
 				</p>
 				<p>
-					<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>"><?php esc_html_e( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', 'edd-widgets-pack' ); ?></label>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>"><?php echo wp_kses( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', array( 'em' => array() ) ); ?></label>
 					<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" type="text" value="<?php echo esc_html( $thumbnail_size ); ?>" />
 				</p>
 			<?php
