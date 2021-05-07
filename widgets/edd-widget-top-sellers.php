@@ -173,7 +173,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 
 			// sanitize limit.
-			$instance['limit'] = strip_tags( $new_instance['limit'] );
+			$instance['limit'] = ( (bool) preg_match( '/^\-?[0-9]+$/', $new_instance['limit'] ) );
 
 			// sanitize show price.
 			$instance['show_price'] = isset( $new_instance['show_price'] ) ? (bool) $new_instance['show_price'] : 0;
@@ -185,7 +185,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
 			$instance['thumbnail'] = isset( $new_instance['thumbnail'] ) ? (bool) $new_instance['thumbnail'] : 0;
 
 			// sanitize thumbnail size.
-			$instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );
+			$instance['thumbnail_size'] = ( (bool) preg_match( '/^[0-9]+$/', $new_instance['thumbnail_size'] ) );
 
 			// delete cache.
 			$this->delete_cache();
@@ -234,7 +234,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
 					);
 					?>
 					</label>
-					<input type="number" min="-1" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_html( $limit ); ?>"/>
+					<input type="number" min="-1" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" value="<?php echo esc_html( $limit ); ?>"/>
 				</p>
 				<p>
 					<input id="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_price' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
@@ -258,7 +258,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
 				</p>
 				<p>
 					<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>"><?php echo wp_kses( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', array( 'em' => array() ) ); ?></label>
-					<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" type="text" value="<?php echo esc_html( $thumbnail_size ); ?>" />
+					<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" value="<?php echo esc_html( $thumbnail_size ); ?>" />
 				</p>
 			<?php
 		}

@@ -147,7 +147,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) && '1' === $new_instance['thumbnail'] ? 1 : 0;
 
 			// sanitize thumbnail size.
-			$instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );
+			$instance['thumbnail_size'] = ( (bool) preg_match( '/^[0-9]+$/', $new_instance['thumbnail_size'] ) );
 
 			return $instance;
 		}
@@ -180,7 +180,7 @@ if ( ! class_exists( 'EDD_Random_Download' ) ) {
 				</p>
 				<p>
 					<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>"><?php echo wp_kses( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', array( 'em' => array() ) ); ?></label>
-					<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" type="text" value="<?php echo esc_html( $thumbnail_size ); ?>" />
+					<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" value="<?php echo esc_html( $thumbnail_size ); ?>" />
 				</p>
 			<?php
 		}

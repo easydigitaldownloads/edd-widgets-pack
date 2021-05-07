@@ -163,10 +163,10 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 
 			// sanitize limit.
-			$instance['limit'] = strip_tags( $new_instance['limit'] );
+			$instance['limit'] = ( (bool) preg_match( '/^\-?[0-9]+$/', $new_instance['limit'] ) );
 
 			// sanitize offset.
-			$instance['offset'] = strip_tags( $new_instance['offset'] );
+			$instance['offset'] = ( (bool) preg_match( '/^[0-9]+$/', $new_instance['offset'] ) );
 
 			// sanitize show price.
 			$instance['show_price'] = ! empty( $new_instance['show_price'] ) && '1' === $new_instance['show_price'] ? 1 : 0;
@@ -175,7 +175,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) && '1' === $new_instance['thumbnail'] ? 1 : 0;
 
 			// sanitize thumbnail size.
-			$instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );
+			$instance['thumbnail_size'] = ( (bool) preg_match( '/^[0-9]+$/', $new_instance['thumbnail_size'] ) );
 
 			// sanitize category.
 			$instance['category'] = $new_instance['category'] ? strip_tags( $new_instance['category'] ) : 'edd-all-categories';
@@ -230,7 +230,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 				);
 				?>
 				</label>
-				<input type="number" min="0" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'offset' ) ); ?>" type="text" value="<?php echo esc_html( $offset ); ?>"/>
+				<input type="number" min="0" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'offset' ) ); ?>" value="<?php echo esc_html( $offset ); ?>"/>
 			</p>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
@@ -254,7 +254,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 			</p>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>"><?php echo wp_kses( 'Size of the thumbnails, e.g. <em>80</em> = 80x80px', array( 'em' => array() ) ); ?></label>
-				<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" type="text" value="<?php echo esc_html( $thumbnail_size ); ?>" />
+				<input type="number" min="0" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumbnail_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumbnail_size' ) ); ?>" value="<?php echo esc_html( $thumbnail_size ); ?>" />
 			</p>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>">

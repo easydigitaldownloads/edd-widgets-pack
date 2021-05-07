@@ -222,7 +222,7 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 
 			// sanitize limit.
-			$instance['limit'] = strip_tags( $new_instance['limit'] );
+			$instance['limit'] = ( (bool) preg_match( '/^\-?[0-9]+$/', $new_instance['limit'] ) );
 
 			// sanitize show price.
 			$instance['show_price'] = ! empty( $new_instance['show_price'] ) && '1' === $new_instance['show_price'] ? 1 : 0;
@@ -231,7 +231,7 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) && '1' === $new_instance['thumbnail'] ? 1 : 0;
 
 			// sanitize thumbnail size.
-			$instance['thumbnail_size'] = strip_tags( $new_instance['thumbnail_size'] );
+			$instance['thumbnail_size'] = ( (bool) preg_match( '/^[0-9]+$/', $new_instance['thumbnail_size'] ) );
 
 			// delete cache.
 			$this->delete_cache();
@@ -278,7 +278,7 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 					);
 					?>
 					</label>
-					<input type="number" min="-1" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_html( $limit ); ?>"/>
+					<input type="number" min="-1" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" value="<?php echo esc_html( $limit ); ?>"/>
 				</p>
 				<p>
 					<input id="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_price' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
