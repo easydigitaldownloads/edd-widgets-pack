@@ -242,7 +242,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 				);
 				?>
 				</label>
-				<input type="number" min="-1" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_html( $limit ); ?>"/>
+				<input type="number" min="-1" class="small-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" value="<?php echo esc_html( $limit ); ?>"/>
 			</p>
 			<p>
 				<input id="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_price' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
