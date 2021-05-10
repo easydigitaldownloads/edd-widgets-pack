@@ -173,7 +173,7 @@ if ( ! class_exists( 'EDD_Most_Commented' ) ) {
 			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) && '1' === $new_instance['thumbnail'] ? 1 : 0;
 
 			// sanitize thumbnail size.
-			$instance['thumbnail_size'] = ( (bool) preg_match( '/^[0-9]+$/', $instance['thumbnail_size'] ) );
+			$instance['thumbnail_size'] = ! empty( $new_instance['thumbnail_size'] ) ? absint( $new_instance['thumbnail_size'] ) : 80;
 
 			// delete cache.
 			$this->delete_cache();

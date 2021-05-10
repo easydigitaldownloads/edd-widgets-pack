@@ -175,7 +175,7 @@ if ( ! class_exists( 'EDD_Most_Recent' ) ) {
 			$instance['thumbnail'] = ! empty( $new_instance['thumbnail'] ) && '1' === $new_instance['thumbnail'] ? 1 : 0;
 
 			// sanitize thumbnail size.
-			$instance['thumbnail_size'] = ( (bool) preg_match( '/^[0-9]+$/', $new_instance['thumbnail_size'] ) );
+			$instance['thumbnail_size'] = ! empty( $new_instance['thumbnail_size'] ) ? absint( $new_instance['thumbnail_size'] ) : 80;
 
 			// sanitize category.
 			$instance['category'] = $new_instance['category'] ? strip_tags( $new_instance['category'] ) : 'edd-all-categories';

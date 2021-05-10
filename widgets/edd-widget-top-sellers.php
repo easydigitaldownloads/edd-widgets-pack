@@ -185,7 +185,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
 			$instance['thumbnail'] = isset( $new_instance['thumbnail'] ) ? (bool) $new_instance['thumbnail'] : 0;
 
 			// sanitize thumbnail size.
-			$instance['thumbnail_size'] = ( (bool) preg_match( '/^[0-9]+$/', $new_instance['thumbnail_size'] ) );
+			$instance['thumbnail_size'] = ! empty( $new_instance['thumbnail_size'] ) ? absint( $new_instance['thumbnail_size'] ) : 80;
 
 			// delete cache.
 			$this->delete_cache();
