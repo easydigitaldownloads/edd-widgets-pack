@@ -164,7 +164,7 @@ if ( ! class_exists( 'EDD_Most_Commented' ) ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 
 			// sanitize limit.
-			$instance['limit'] = ( (bool) preg_match( '/^\-?[0-9]+$/', $instance['limit'] ) );
+			$instance['limit'] = ! empty( $instance['limit'] ) ? (int) $instance['limit'] : 4;
 
 			// sanitize show price.
 			$instance['show_price'] = ! empty( $new_instance['show_price'] ) && '1' === $new_instance['show_price'] ? 1 : 0;
