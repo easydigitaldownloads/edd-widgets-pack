@@ -173,7 +173,7 @@ if ( ! class_exists( 'EDD_Top_Sellers' ) ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 
 			// sanitize limit.
-			$instance['limit'] = ! empty( $new_instance['limit'] ) ? (int) $new_instance['limit'] : 4;
+			$instance['limit'] = isset( $new_instance['limit'] ) ? (int) $new_instance['limit'] : 4;
 
 			// sanitize show price.
 			$instance['show_price'] = isset( $new_instance['show_price'] ) ? (bool) $new_instance['show_price'] : 0;

@@ -222,7 +222,7 @@ if ( ! class_exists( 'EDD_Related_Downloads' ) ) {
 			$instance['title'] = strip_tags( $new_instance['title'] );
 
 			// sanitize limit.
-			$instance['limit'] = ! empty( $instance['limit'] ) ? (int) $new_instance['limit'] : 4;
+			$instance['limit'] = isset( $instance['limit'] ) ? (int) $new_instance['limit'] : 4;
 
 			// sanitize show price.
 			$instance['show_price'] = ! empty( $new_instance['show_price'] ) && '1' === $new_instance['show_price'] ? 1 : 0;
