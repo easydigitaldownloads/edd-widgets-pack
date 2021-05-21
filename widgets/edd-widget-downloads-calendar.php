@@ -329,9 +329,8 @@ if ( ! class_exists( 'EDD_Downloads_Calendar' ) ) {
 
 			// See how much we should pad at the end of the month.
 			$end_of_month_pad = 7 - (int) calendar_week_mod( date( 'w', mktime( 0, 0, 0, $thismonth, $day, $thisyear ) ) - $week_begins );
-
 			if ( 0 !== $end_of_month_pad && 7 !== $end_of_month_pad ) {
-				$calendar_output .= "\n\t\t" . '<td class="pad" colspan="' . esc_attr( $pad ) . '">&nbsp;</td>';
+				$calendar_output .= "\n\t\t" . '<td class="pad" colspan="' . esc_attr( $end_of_month_pad ) . '">&nbsp;</td>';
 			}
 			$calendar_output .= "\n\t</tr>\n\t</tbody>\n\t</table>";
 
