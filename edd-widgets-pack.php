@@ -19,8 +19,7 @@
  * @return   void
  * @access   private
  * @since    1.0
-*/
-
+ */
 if ( ! function_exists( 'edd_widgets_pack_init' ) ) {
 	function edd_widgets_pack_init() {
 
@@ -28,15 +27,15 @@ if ( ! function_exists( 'edd_widgets_pack_init' ) ) {
 			return;
 		}
 
-		// load internationalization
+		// load internationalization.
 		load_plugin_textdomain( 'edd-widgets-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-		// Handle licensing
+		// Handle licensing.
 		if ( class_exists( 'EDD_License' ) ) {
 			$license = new EDD_License( __FILE__, 'Widgets Pack', '1.2.6', 'Sandhills Development, LLC', null, null, 1514 );
 		}
 
-		// register widgets
+		// register widgets.
 		require_once plugin_dir_path( __FILE__ ) . 'widgets/edd-widget-top-sellers.php';
 		require_once plugin_dir_path( __FILE__ ) . 'widgets/edd-widget-most-commented.php';
 		require_once plugin_dir_path( __FILE__ ) . 'widgets/edd-widget-most-recent.php';
