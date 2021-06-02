@@ -45,7 +45,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 
-			$cache = get_transient( 'edd_widgets_featured_download_' . $this->id );
+			$cache = get_transient( 'edd_widgets_' . $this->id );
 			if ( false === $cache ) {
 
 				// get the title and apply filters.
@@ -136,7 +136,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 				$cache = $args['before_widget'] . $out . $args['after_widget'];
 
 				// store the result on a temporal transient.
-				set_transient( 'edd_widgets_featured_download_' . $this->id, $cache );
+				set_transient( 'edd_widgets_' . $this->id, $cache );
 
 			}
 			echo $cache;
@@ -182,7 +182,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 		 * @since    1.0
 		 */
 		public function delete_cache() {
-			delete_transient( 'edd_widgets_featured_download_' . $this->id );
+			delete_transient( 'edd_widgets_' . $this->id );
 		}
 
 		/**
