@@ -198,15 +198,13 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 			$thumbnail      = isset( $instance['thumbnail'] ) ? esc_attr( $instance['thumbnail'] ) : 0;
 			$thumbnail_size = isset( $instance['thumbnail_size'] ) ? esc_attr( $instance['thumbnail_size'] ) : 80;
 
-			$downloads = $this->get_downloads();
-
 			?>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'edd-widgets-pack' ); ?></label>
 				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_html( $title ); ?>"/>
 			</p>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'download' ) ); ?>"><?php echo esc_attr( edd_get_label_singular() ); ?>:</label>
+				<label for="<?php echo esc_attr( str_replace( '-', '_', $this->get_field_id( 'download' ) ) ); ?>"><?php echo esc_attr( edd_get_label_singular() ); ?>:</label>
 				<?php
 				echo EDD()->html->product_dropdown(
 					array(
@@ -214,6 +212,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 						'id'       => esc_attr( $this->get_field_id( 'download' ) ),
 						'chosen'   => true,
 						'selected' => esc_attr( $download ),
+						'class'    => 'widefat',
 					)
 				);
 				?>
