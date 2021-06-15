@@ -205,18 +205,18 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 			</p>
 			<p>
 				<label for="<?php echo esc_attr( str_replace( '-', '_', $this->get_field_id( 'download' ) ) ); ?>"><?php echo esc_attr( edd_get_label_singular() ); ?>:</label>
-				<?php
-				echo EDD()->html->product_dropdown(
-					array(
-						'name'     => esc_attr( $this->get_field_name( 'download' ) ),
-						'id'       => esc_attr( $this->get_field_id( 'download' ) ),
-						'chosen'   => true,
-						'selected' => esc_attr( $download ),
-						'class'    => 'widefat',
-					)
-				);
-				?>
 			</p>
+			<?php
+			echo EDD()->html->product_dropdown(
+				array(
+					'name'     => esc_attr( $this->get_field_name( 'download' ) ),
+					'id'       => esc_attr( $this->get_field_id( 'download' ) ),
+					'chosen'   => true,
+					'selected' => esc_attr( $download ),
+					'class'    => 'widefat',
+				)
+			);
+			?>
 			<p>
 				<input id="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_price' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>"><?php esc_html_e( 'Display price?', 'edd-widgets-pack' ); ?></label>
