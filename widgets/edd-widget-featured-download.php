@@ -207,32 +207,24 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 				<label for="<?php echo esc_attr( str_replace( '-', '_', $this->get_field_id( 'download' ) ) ); ?>"><?php echo esc_attr( edd_get_label_singular() ); ?>:</label>
 			</p>
 			<?php
-			if ( function_exists( 'edd_get_order' ) ) {
+				$dropdown_args = array(
+					'chosen' => true,
+				);
+				if ( ! function_exists( 'edd_get_order' ) ) {
+					$dropdown_args = array(
+						'chosen' => false,
+						'number' => -1,
+					);
+				}
 				echo EDD()->html->product_dropdown(
 					array(
 						'name'     => esc_attr( $this->get_field_name( 'download' ) ),
 						'id'       => esc_attr( $this->get_field_id( 'download' ) ),
-						'chosen'   => true,
 						'selected' => esc_attr( $download ),
 						'class'    => 'widefat',
-					)
+					),
+					$dropdown_args,
 				);
-			} else {
-				$downloads = $this->get_downloads();
-				?>
-				<p>
-				<select class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'download' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'download' ) ); ?>">
-				<?php
-				if ( ! empty( $downloads ) ) {
-					foreach ( $downloads as $key => $download_details ) {
-						echo '<option value="' . esc_attr( $download_details['value'] ) . '" ' . selected( $download_details['value'], $download ) . '>' . esc_attr( $download_details['title'] ) . '</option>';
-					}
-				}
-				?>
-				</select>
-				</p>
-				<?php
-			}
 			?>
 			<p>
 				<input id="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_price' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
