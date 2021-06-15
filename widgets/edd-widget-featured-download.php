@@ -208,21 +208,22 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 			</p>
 			<?php
 				$dropdown_args = array(
-					'chosen' => true,
+					'name'     => esc_attr( $this->get_field_name( 'download' ) ),
+					'id'       => esc_attr( $this->get_field_id( 'download' ) ),
+					'selected' => esc_attr( $download ),
+					'class'    => 'widefat',
+					'chosen'   => true,
 				);
 				if ( ! function_exists( 'edd_get_order' ) ) {
-					$dropdown_args = array(
-						'chosen' => false,
-						'number' => -1,
+					$dropdown_args = array_merge(
+						$dropdown_args,
+						array(
+							'chosen' => false,
+							'number' => -1,
+						)
 					);
 				}
 				echo EDD()->html->product_dropdown(
-					array(
-						'name'     => esc_attr( $this->get_field_name( 'download' ) ),
-						'id'       => esc_attr( $this->get_field_id( 'download' ) ),
-						'selected' => esc_attr( $download ),
-						'class'    => 'widefat',
-					),
 					$dropdown_args,
 				);
 			?>
