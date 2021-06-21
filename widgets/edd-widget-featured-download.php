@@ -198,25 +198,35 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 			$thumbnail      = isset( $instance['thumbnail'] ) ? esc_attr( $instance['thumbnail'] ) : 0;
 			$thumbnail_size = isset( $instance['thumbnail_size'] ) ? esc_attr( $instance['thumbnail_size'] ) : 80;
 
-			$downloads = $this->get_downloads();
-
 			?>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'edd-widgets-pack' ); ?></label>
 				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_html( $title ); ?>"/>
 			</p>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'download' ) ); ?>"><?php echo esc_attr( edd_get_label_singular() ); ?>:</label>
-				<select name="<?php echo esc_attr( $this->get_field_name( 'download' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'download' ) ); ?>">
-				<?php
-				if ( ! empty( $downloads ) ) {
-					foreach ( $downloads as $key => $download_details ) {
-						echo '<option value="' . esc_attr( $download_details['value'] ) . '" ' . selected( $download_details['value'], $download ) . '>' . esc_attr( $download_details['title'] ) . '</option>';
-					}
-				}
-				?>
-				</select>
+				<label for="<?php echo esc_attr( str_replace( '-', '_', $this->get_field_id( 'download' ) ) ); ?>"><?php echo esc_attr( edd_get_label_singular() ); ?>:</label>
 			</p>
+			<?php
+				$dropdown_args = array(
+					'name'     => esc_attr( $this->get_field_name( 'download' ) ),
+					'id'       => esc_attr( $this->get_field_id( 'download' ) ),
+					'selected' => esc_attr( $download ),
+					'class'    => 'widefat',
+					'chosen'   => true,
+				);
+				if ( ! function_exists( 'edd_get_order' ) ) {
+					$dropdown_args = array_merge(
+						$dropdown_args,
+						array(
+							'chosen' => false,
+							'number' => -1,
+						)
+					);
+				}
+				echo EDD()->html->product_dropdown(
+					$dropdown_args,
+				);
+			?>
 			<p>
 				<input id="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_price' ) ); ?>" type="checkbox" value="1" <?php checked( '1', $show_price ); ?>/>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'show_price' ) ); ?>"><?php esc_html_e( 'Display price?', 'edd-widgets-pack' ); ?></label>
