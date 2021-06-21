@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "build": "npm run i18n",
+    "i18n": "wp i18n make-pot . languages/edd-widgets-pack.pot --domain=edd-widgets-pack --headers='{\"Report-Msgid-Bugs-To\": \"https://easydigitaldownloads.com/support\"}'"
+  }
+}
