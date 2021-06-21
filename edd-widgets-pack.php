@@ -3,7 +3,7 @@
  * Plugin Name: Easy Digital Downloads - Widgets Pack
  * Plugin URI: https://easydigitaldownloads.com/downloads/widgets-bundle/
  * Description: A pack of widgets for Easy Digital Downloads.
- * Version: 1.2.6
+ * Version: 1.2.7
  * Author: Sandhills Development, LLC
  * Author URI: https://sandhillsdev.com
  * Contributors: sksmatt
@@ -32,7 +32,7 @@ if ( ! function_exists( 'edd_widgets_pack_init' ) ) {
 
 		// Handle licensing.
 		if ( class_exists( 'EDD_License' ) ) {
-			$license = new EDD_License( __FILE__, 'Widgets Pack', '1.2.6', 'Sandhills Development, LLC', null, null, 1514 );
+			$license = new EDD_License( __FILE__, 'Widgets Pack', '1.2.7', 'Sandhills Development, LLC', null, null, 1514 );
 		}
 
 		// register widgets.
