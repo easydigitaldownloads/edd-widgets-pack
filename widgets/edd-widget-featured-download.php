@@ -224,7 +224,7 @@ if ( ! class_exists( 'EDD_Featured_Download' ) ) {
 					);
 				}
 				echo EDD()->html->product_dropdown(
-					$dropdown_args,
+					$dropdown_args
 				);
 			?>
 			<p>
